@@ -67,6 +67,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^12.2",
-        "symfony/maker-bundle": "^1.63"
+        "symfony/maker-bundle": "^1.63",
+        "symfony/stopwatch": "7.3.*",
+        "symfony/web-profiler-bundle": "7.3.*"
     }
 }
