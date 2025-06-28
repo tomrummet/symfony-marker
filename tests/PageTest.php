@@ -4,10 +4,14 @@ namespace App\Tests;
 
 use App\Repository\PageRepository;
 use League\CommonMark\CommonMarkConverter;
+use League\Flysystem\Filesystem as FlysystemFilesystem;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-class PageTest extends TestCase
+class PageTest extends KernelTestCase
 {
     private string $fixturesFolder = 'tests/Fixtures/pages/';
 
@@ -25,7 +29,7 @@ class PageTest extends TestCase
         $this->assertTrue($filesystem->exists($this->fixturesFolder));
 
         $rawFileContent = $filesystem->readFile($this->fixturesFolder . 'markdown-page.md');
-        $content = (new CommonMarkConverter())
+        $markdownContent = (new CommonMarkConverter())
             ->convert($rawFileContent)
             ->getContent()
         ;
@@ -36,7 +40,7 @@ class PageTest extends TestCase
 
         HTML;
 
-        $this->assertEquals($expectedContent, $content);
+        $this->assertEquals($expectedContent, $markdownContent);
     }
 
 }
