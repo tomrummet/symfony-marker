@@ -5,7 +5,7 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/var/storage/default'
-        test.storage
+        test.storage:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/tests/Fixtures'
