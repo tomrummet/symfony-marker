@@ -11,7 +11,7 @@
         "league/flysystem-bundle": "^3.4",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.8.1",
         "symfony/framework-bundle": "7.3.*",
         "symfony/runtime": "7.3.*",
         "symfony/yaml": "7.3.*"
@@ -68,8 +68,8 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.2",
-        "symfony/maker-bundle": "^1.63",
+        "phpunit/phpunit": "^12.2.7",
+        "symfony/maker-bundle": "^1.64",
         "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*"
     }
