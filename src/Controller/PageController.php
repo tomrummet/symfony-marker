@@ -9,16 +9,20 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PageController extends AbstractController
 {
-    #[Route('/page', name: 'app_page')]
-    public function index(): Response
+    #[Route('/page/{name}', name: 'app_page')]
+    public function index(string $name, PageRepository $pageRepository): Response
     {
-        return $this->render('page/index.html.twig', [
-            'controller_name' => 'PageController',
-        ]);
-    }
+        $fileName = $pageRepository->getFile(
+            name: $name,
+        );
 
-    public function getMarkdownFile(string $page, PageRepository $pageRepository)
-    {
-        return false;
+        if (!$fileName) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('page/index.html.twig', [
+            'controller_name' => $name . 'PageController',
+            'content' => $pageRepository->getMarkdownContent($fileName)
+        ]);
     }
 }
