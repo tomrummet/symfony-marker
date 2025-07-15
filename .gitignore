@@ -12,3 +12,5 @@
 /phpunit.xml
 /.phpunit.cache/
 ###< phpunit/phpunit ###
+
+/public/contents/pages
