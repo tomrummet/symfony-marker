@@ -9,8 +9,19 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PageController extends AbstractController
 {
-    #[Route('/page/{name}', name: 'app_page')]
+    #[Route('', name: 'app_index')]
     public function index(
+        PageRepository $pageRepository,
+    )
+    {
+        return $this->render('index/index.html.twig', [
+            'content' => $pageRepository->getMarkdownContent($pageRepository->getFile('index')),
+            'pages' => $pageRepository->getPages(),
+        ]);
+    }
+
+    #[Route('/page/{name}', name: 'app_page')]
+    public function page(
         string $name,
         PageRepository $pageRepository,
     ): Response {
@@ -23,7 +34,7 @@ final class PageController extends AbstractController
         }
 
         return $this->render('page/index.html.twig', [
-            'controller_name' => $name . 'PageController',
+            'title' => 'This will be a title',
             'content' => $pageRepository->getMarkdownContent($file)
         ]);
     }

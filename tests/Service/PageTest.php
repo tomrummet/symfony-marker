@@ -21,7 +21,7 @@ class PageTest extends KernelTestCase
 
         $this->assertTrue($filesystem->exists($this->fixturesFolder));
         $this->assertEquals(
-            $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder,
+            $this->getTestContentsDirectory(),
             $pageRepository->getContentDirectory(),
         );
     }
@@ -36,7 +36,7 @@ class PageTest extends KernelTestCase
 
         $this->assertNotFalse($file);
         $this->assertEquals(
-            $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder . 'markdown-page.md',
+            $this->getTestContentsDirectory() . 'markdown-page.md',
             $file,
         );
     }
@@ -60,5 +60,29 @@ class PageTest extends KernelTestCase
         HTML;
 
         $this->assertEquals($expectedContent, $markdownContent);
+    }
+
+    public function testGetPages(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+
+        $pageRepository = $container->get(PageRepository::class);
+
+        $this->assertNotContains('index', $pageRepository->getPages());
+        $this->assertEquals(
+            [
+                'markdown-page',
+            ],
+            $pageRepository->getPages(),
+        );
+    }
+
+    private function getTestContentsDirectory(): string
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+
+        return $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder;
     }
 }

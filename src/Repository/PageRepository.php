@@ -6,6 +6,7 @@ use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 class PageRepository
 {
@@ -44,5 +45,28 @@ class PageRepository
         } catch(IOException $e) {
             return '# Ups!';
         }
+    }
+
+    public function getPages(): array
+    {
+        $files = $this->getFileList();
+
+        $result = [];
+        foreach ($files as $file) {
+            $result[] = rtrim($file->getFilename(), '.md');
+        }
+
+        return $result;
+    }
+
+    public function getFileList(): Finder
+    {
+        $finder = new Finder();
+
+        return $finder
+            ->files()
+            ->in($this->getContentDirectory())
+            ->notName('index.md')
+        ;
     }
 }
