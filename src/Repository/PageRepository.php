@@ -9,36 +9,33 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class PageRepository
 {
-    private string $defaultDirectory = 'public/contents/pages/';
-
     public function __construct(
+        public MarkdownRepository $markdownRepository,
         public ParameterBagInterface $params,
-    ) {
+    ) {}
+
+    public function getContentDirectory(): string
+    {
+        return "{$this->params->get('kernel.project_dir')}/{$this->params->get('marker.directory.pages')}";
     }
 
-    public function getFile(
-        string $name,
-        ?string $directory = null,
-    ): string|false
+    public function getFile(string $name): string|false
     {
-        $name = is_null($directory)
-            ? $this->defaultDirectory . $name
-            : $directory . $name
-        ;
+        $filename = "{$this->getContentDirectory()}{$name}.md";
 
-        $markdownFilename = "{$this->params->get('kernel.project_dir')}/{$name}.md";
-        if (!file_exists($markdownFilename)) {
+        $filesystem = new Filesystem();
+        if (!$filesystem->exists($filename)) {
             return false;
         }
 
-        return $markdownFilename;
+        return $filename;
     }
 
-    public function getMarkdownContent(string $filePath): string
+    public function getMarkdownContent(string $file): string
     {
         try {
             $filesystem = new Filesystem();
-            $rawFileContent = $filesystem->readFile($filePath);
+            $rawFileContent = $filesystem->readFile($file);
 
             return (new CommonMarkConverter())
                 ->convert($rawFileContent)
