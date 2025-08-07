@@ -13,4 +13,4 @@
 /.phpunit.cache/
 ###< phpunit/phpunit ###
 
-/public/contents/pages
+/storage/contents/pages
