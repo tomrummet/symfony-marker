@@ -16,7 +16,6 @@ class PageTest extends KernelTestCase
         $container = static::getContainer();
 
         $pageRepository = $container->get(PageRepository::class);
-
         $filesystem = new Filesystem();
 
         $this->assertTrue($filesystem->exists($this->fixturesFolder));

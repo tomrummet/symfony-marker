@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     marker.directory.pages: '%env(string:MARKER_DIRS_PAGES)%'
+    marker.directory.posts: '%env(string:MARKER_DIRS_POSTS)%'
 
 services:
     # default configuration for services in *this* file
