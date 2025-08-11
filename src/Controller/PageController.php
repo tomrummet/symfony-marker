@@ -9,11 +9,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PageController extends AbstractController
 {
-    #[Route('', name: 'app_index')]
+    #[Route('/', name: 'app_index')]
     public function index(
         PageRepository $pageRepository,
-    ): Response
-    {
+    ): Response {
         return $this->render('index/index.html.twig', [
             'content' => $pageRepository->getMarkdownContent($pageRepository->getFile('index')),
             'pages' => $pageRepository->getPages(),

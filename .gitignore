@@ -14,3 +14,4 @@
 ###< phpunit/phpunit ###
 
 /storage/contents/pages
+/storage/contents/posts

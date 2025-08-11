@@ -2,16 +2,13 @@
 
 namespace App\Repository;
 
-use League\CommonMark\CommonMarkConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
-class PageRepository
+class PageRepository extends MarkdownRepository
 {
     public function __construct(
-        public MarkdownRepository $markdownRepository,
         public ParameterBagInterface $params,
     ) {}
 
@@ -30,21 +27,6 @@ class PageRepository
         }
 
         return $filename;
-    }
-
-    public function getMarkdownContent(string $file): string
-    {
-        try {
-            $filesystem = new Filesystem();
-            $rawFileContent = $filesystem->readFile($file);
-
-            return (new CommonMarkConverter())
-                ->convert($rawFileContent)
-                ->getContent()
-            ;
-        } catch(IOException $e) {
-            return '# Ups!';
-        }
     }
 
     public function getPages(): array

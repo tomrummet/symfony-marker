@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to tomrummet.dk{% endblock %}
+
+{% block body %}
+    <div>{{ content|raw }}</div>
+
+    <ul>
+    {% for slug, post in posts %}
+        <li>
+            <a href="posts/{{ slug }}">{{ post.post.title|capitalize }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
