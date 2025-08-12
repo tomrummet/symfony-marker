@@ -14,7 +14,7 @@ final class PageController extends AbstractController
         PageRepository $pageRepository,
     ): Response {
         return $this->render('index/index.html.twig', [
-            'content' => $pageRepository->getMarkdownContent($pageRepository->getFile('index')),
+            'content' => $pageRepository->getMarkdownContent($pageRepository->getFile('index')->getPathname()),
             'pages' => $pageRepository->getPages(),
         ]);
     }
@@ -33,7 +33,7 @@ final class PageController extends AbstractController
         }
 
         return $this->render('page/index.html.twig', [
-            'title' => 'This will be a title',
+            'title' => rtrim($file->getFilename(), '.md'),
             'content' => $pageRepository->getMarkdownContent($file)
         ]);
     }

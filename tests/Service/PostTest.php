@@ -82,11 +82,10 @@ class PostTest extends KernelTestCase
         $metadata = $postRepository->getMetaData('test-post');
         $this->assertNotFalse($metadata);
         $this->assertIsArray($metadata);
-        $this->assertArrayHasKey('post', $metadata);
-        $this->assertArrayHasKey('title', $metadata['post']);
-        $this->assertEquals('Test post', $metadata['post']['title']);
-        $this->assertArrayHasKey('published', $metadata['post']);
-        $this->assertEquals('2025-08-11 21:01:59', $metadata['post']['published']);
+        $this->assertArrayHasKey('title', $metadata);
+        $this->assertEquals('Test post', $metadata['title']);
+        $this->assertArrayHasKey('published', $metadata);
+        $this->assertEquals('2025-08-11 21:01:59', $metadata['published']);
     }
 
     public function testGetPosts(): void

@@ -1,8 +1,7 @@
-post:
-    title: Another Test post
-    author: Test Author
-    published: '2025-08-11 21:04:43'
-    tags:
-        - testing
-        - post
-        - yaml
+title: Another Test post
+author: Test Author
+published: '2025-08-11 21:04:43'
+tags:
+    - testing
+    - post
+    - yaml

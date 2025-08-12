@@ -35,8 +35,8 @@ class PageTest extends KernelTestCase
 
         $this->assertNotFalse($file);
         $this->assertEquals(
-            $this->getTestContentsDirectory() . 'markdown-page.md',
-            $file,
+            $this->getTestContentsDirectory() . 'markdown-page/Markdown page.md',
+            $file->getPathName(),
         );
     }
 
@@ -71,7 +71,15 @@ class PageTest extends KernelTestCase
         $this->assertNotContains('index', $pageRepository->getPages());
         $this->assertEquals(
             [
-                'markdown-page',
+                [
+                    'path' => 'posts',
+                    'title' => 'Posts',
+                ],
+                [
+                    'path' => 'page/markdown-page',
+                    'file' => 'Markdown page.md',
+                    'title' => 'Markdown page',
+                ],
             ],
             $pageRepository->getPages(),
         );

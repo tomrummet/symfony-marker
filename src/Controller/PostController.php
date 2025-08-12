@@ -24,6 +24,8 @@ final class PostController extends AbstractController
         string $slug,
         PostRepository $postRepository,
     ): Response {
-        dd($postRepository->getPost($slug));
+        return $this->render('post/post.html.twig', [
+            'post' => $postRepository->getPost($slug),
+        ]);
     }
 }

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.metadata.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ post.metadata.title }}</h1>
+
+    <div id="metadata">
+        <span class="published">Published {{ post.metadata.published }}</span>
+        <span class="author">by {{ post.metadata.author }}</span>
+    </div>
+
+    <div>{{ post.content|raw }}</div>
+
+    <div id="bottom">
+        <a href="/">Back to start</a>
+    </div>
+
+{% endblock %}

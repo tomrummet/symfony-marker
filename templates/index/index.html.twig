@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to tomrummet.dk{% endblock %}
-
 {% block body %}
     <div>{{ content|raw }}</div>
 
     <ul>
     {% for page in pages %}
         <li>
-            <a href="page/{{ page }}">{{ page|capitalize }}</a>
+            <a href="{{ page.path }}">{{ page.title }}</a>
         </li>
     {% endfor %}
     </ul>

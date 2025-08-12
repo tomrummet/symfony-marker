@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use SplFileInfo;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -17,28 +18,56 @@ class PageRepository extends MarkdownRepository
         return "{$this->params->get('kernel.project_dir')}/{$this->params->get('marker.directory.pages')}";
     }
 
-    public function getFile(string $name): string|false
+    public function getFile(string $name): SplFileInfo|false
     {
-        $filename = "{$this->getContentDirectory()}{$name}.md";
+        $pagePath = "{$this->getContentDirectory()}{$name}/";
 
         $filesystem = new Filesystem();
-        if (!$filesystem->exists($filename)) {
+        if (!$filesystem->exists($pagePath)) {
             return false;
         }
 
-        return $filename;
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in($pagePath)
+            ->name('*.md')
+        ;
+
+        if($finder->count() === 0) {
+            return false;
+        }
+
+        $iterator = $finder->getIterator();
+        $iterator->rewind();
+
+        return $iterator->current();
     }
 
     public function getPages(): array
     {
+        $defaultPages = [
+            [
+                'path' => 'posts',
+                'title' => 'Posts',
+            ],
+        ];
+
         $files = $this->getFileList();
 
         $result = [];
         foreach ($files as $file) {
-            $result[] = rtrim($file->getFilename(), '.md');
+            $path = explode('/', $file->getPath());
+            $name = end($path);
+
+            $result[] = [
+                'path' => "page/{$name}",
+                'file' => $file->getFileName(),
+                'title' => rtrim($file->getFilename(), '.md'),
+            ];
         }
 
-        return $result;
+        return [...$defaultPages, ...$result];
     }
 
     public function getFileList(): Finder
@@ -47,8 +76,9 @@ class PageRepository extends MarkdownRepository
 
         return $finder
             ->files()
-            ->in($this->getContentDirectory())
-            ->notName('index.md')
+            ->in($this->getContentDirectory() . '*')
+            ->notName('Index.md')
+            ->name('*.md')
         ;
     }
 }

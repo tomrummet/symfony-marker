@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to tomrummet.dk{% endblock %}
+{% block title %}Posts{% endblock %}
 
 {% block body %}
+    <h1>Posts</h1>
+
     <div>{{ content|raw }}</div>
 
     <ul>
     {% for slug, post in posts %}
         <li>
-            <a href="posts/{{ slug }}">{{ post.post.title|capitalize }}</a>
+            <a href="posts/{{ slug }}">{{ post.title|capitalize }}</a>
         </li>
     {% endfor %}
     </ul>
+    <a href="/">Back to start</a>
 {% endblock %}
