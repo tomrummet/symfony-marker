@@ -3,6 +3,7 @@
 namespace App\Tests\Service;
 
 use App\Repository\PostRepository;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -10,7 +11,8 @@ class PostTest extends KernelTestCase
 {
     protected string $fixturesFolder = 'tests/Fixtures/posts/';
 
-    public function testGetPostContentDirectory(): void
+    #[Test]
+    public function getPostContentDirectory(): void
     {
         $filesystem = new Filesystem();
 
@@ -26,7 +28,8 @@ class PostTest extends KernelTestCase
         );
     }
 
-    public function testGetFile(): void
+    #[Test]
+    public function getFile(): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -43,7 +46,8 @@ class PostTest extends KernelTestCase
         );
     }
 
-    public function testGetMarkDownFileContent (): void
+    #[Test]
+    public function getMarkDownFileContent (): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -64,7 +68,8 @@ class PostTest extends KernelTestCase
         $this->assertEquals($expectedContent, $markdownContent);
     }
 
-    public function testGetMetaData(): void
+    #[Test]
+    public function getMetaData(): void
     {
         $filesystem = new Filesystem();
 
@@ -88,7 +93,8 @@ class PostTest extends KernelTestCase
         $this->assertEquals('2025-08-11 21:01:59', $metadata['published']);
     }
 
-    public function testGetPosts(): void
+    #[Test]
+    public function getPosts(): void
     {
         self::bootKernel();
         $container = static::getContainer();

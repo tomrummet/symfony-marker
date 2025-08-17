@@ -3,6 +3,7 @@
 namespace App\Tests\Service;
 
 use App\Repository\PageRepository;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -10,7 +11,8 @@ class PageTest extends KernelTestCase
 {
     private string $fixturesFolder = 'tests/Fixtures/pages/';
 
-    public function testGetPageContentDirectory(): void
+    #[Test]
+    public function pageContentDirectory(): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -25,7 +27,8 @@ class PageTest extends KernelTestCase
         );
     }
 
-    public function testGetFile(): void
+    #[Test]
+    public function getFile(): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -40,7 +43,8 @@ class PageTest extends KernelTestCase
         );
     }
 
-    public function testGetMarkDownFileContent (): void
+    #[Test]
+    public function getMarkDownFileContent (): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -61,7 +65,8 @@ class PageTest extends KernelTestCase
         $this->assertEquals($expectedContent, $markdownContent);
     }
 
-    public function testGetPages(): void
+    #[Test]
+    public function getPages(): void
     {
         self::bootKernel();
         $container = static::getContainer();
