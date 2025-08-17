@@ -10,4 +10,19 @@
         </li>
     {% endfor %}
     </ul>
+
+    <h2>Latest posts</h2>
+    <div>
+    {% for post in posts %}
+         <article>
+            <h3>
+                <a href="posts/{{ post.slug }}">{{ post.title|capitalize }}</a>
+            </h3>
+            <div id="metadata">
+                <span class="published">Published {{ post.published }}</span>
+                <span class="author">by {{ post.author }}</span>
+            </div>
+        </li>
+    {% endfor %}
+    </div>
 {% endblock %}

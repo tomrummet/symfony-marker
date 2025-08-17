@@ -65,7 +65,7 @@ class PostRepository extends MarkdownRepository
         }
 
         usort($result, function($a, $b) {
-            return $a['published'] <=> $b['published'];
+            return $b['published'] <=> $a['published'];
         });
 
         return array_slice($result, 0, $limit);
