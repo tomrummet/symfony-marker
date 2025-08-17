@@ -55,29 +55,29 @@ class PostRepository extends MarkdownRepository
     public function getPosts(
         ?int $limit = null,
     ): array {
-        $posts = $this->getPostsList(
-            limit: $limit,
-        );
+        $posts = $this->getPostsList();
+
         $result = [];
         foreach ($posts as $post) {
             $path = explode('/', $post->getPath());
             $name = end($path);
-            $result[$name] = $this->getMetaData($name);
+            $result[] = ['slug' => $name, ...$this->getMetaData($name)];
         }
 
-        return $result;
+        usort($result, function($a, $b) {
+            return $a['published'] <=> $b['published'];
+        });
+
+        return array_slice($result, 0, $limit);
     }
 
-    public function getPostsList(
-        ?int $limit = null,
-    ): LimitIterator {
+    public function getPostsList(): Finder {
         $finder = new Finder();
-        $finder
+
+        return $finder
             ->files()
             ->in($this->getContentDirectory() . '*')
             ->name('metadata.yaml')
         ;
-
-        return new LimitIterator($finder->getIterator(), 0,($limit ?? $finder->count()));
     }
 }

@@ -104,9 +104,13 @@ class PostTest extends KernelTestCase
         $this->assertIsArray($posts);
         $this->assertNotEmpty($posts);
         $this->assertEquals(2, count($posts));
-        $this->assertArrayNotHasKey('not-a-test-post', $posts);
-        $this->assertArrayHasKey('test-post', $posts);
-        $this->assertArrayHasKey('another-test-post', $posts);
+
+        $this->assertEmpty(array_filter($posts, static fn ($post) => $post['slug'] === 'not-a-test-post'));
+        $this->assertNotEmpty(array_filter($posts, static fn ($post) => $post['slug'] === 'test-post'));
+        $this->assertNotEmpty(array_filter($posts, static fn ($post) => $post['slug'] === 'another-test-post'));
+
+        $this->assertEquals('test-post', $posts[0]['slug'], 'The first post isn\'t the first published');
+        $this->assertEquals('another-test-post', $posts[1]['slug'], 'The second post isn\'t the second published');
 
         $posts = $postRepository->getPosts(
             limit: 1,
