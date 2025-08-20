@@ -2,14 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>{% block title %}Welcome{% endblock %}</title>
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+    <div class="grid grid-cols-6">
+        <div class="col-span-4 col-start-2 bg-white p-5 drop-shadow-m">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
     </body>
 </html>

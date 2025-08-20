@@ -14,6 +14,9 @@
         "symfony/flex": "^2.8.1",
         "symfony/framework-bundle": "7.3.*",
         "symfony/runtime": "7.3.*",
+        "symfony/stimulus-bundle": "^2.29",
+        "symfony/ux-turbo": "^2.29",
+        "symfony/webpack-encore-bundle": "^2.3",
         "symfony/yaml": "7.3.*"
     },
     "config": {
