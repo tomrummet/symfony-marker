@@ -2,10 +2,10 @@
 
 namespace App\Tests\Service;
 
-use App\Repository\PostRepository;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Tomrummet\Marker\Repository\PostRepository;
 
 class PostTest extends KernelTestCase
 {

@@ -1,5 +1,5 @@
 controllers:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/tomrummet/marker/src/Controller/
+        namespace: Tomrummet\Marker\Controller
     type: attribute

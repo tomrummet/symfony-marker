@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Tomrummet\Marker\Repository;
 
-use App\Model\MarkerTypeEnum;
+use Tomrummet\Marker\Model\MarkerTypeEnum;
 
 class ScaffoldRepository
 {

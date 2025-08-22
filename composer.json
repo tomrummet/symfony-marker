@@ -31,7 +31,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Tomrummet\\Marker\\": "src/tomrummet/marker/src/"
         }
     },
     "autoload-dev": {

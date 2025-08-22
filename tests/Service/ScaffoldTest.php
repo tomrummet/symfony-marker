@@ -2,10 +2,10 @@
 
 namespace App\Tests\Service;
 
-use App\Model\MarkerTypeEnum;
-use App\Repository\ScaffoldRepository;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Tomrummet\Marker\Model\MarkerTypeEnum;
+use Tomrummet\Marker\Repository\ScaffoldRepository;
 
 class ScaffoldTest extends KernelTestCase
 {

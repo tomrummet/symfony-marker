@@ -2,10 +2,10 @@
 
 namespace App\Tests\Service;
 
-use App\Repository\PageRepository;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Tomrummet\Marker\Repository\PageRepository;
 
 class PageTest extends KernelTestCase
 {

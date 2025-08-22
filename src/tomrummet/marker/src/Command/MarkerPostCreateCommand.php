@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Command;
+namespace Tomrummet\Marker\Command;
 
-use App\Model\MarkerTypeEnum;
-use App\Repository\ScaffoldRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,15 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'marker:page:create',
+    name: 'marker:post:create',
     description: 'Add a short description for your command',
 )]
-class MarkerPageCreateCommand extends Command
+class MarkerPostCreateCommand extends Command
 {
-    public function __construct(
-        public MarkerTypeEnum $type = MarkerTypeEnum::PAGE,
-        public ScaffoldRepository $scaffoldRepository,
-    ) {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -35,8 +31,6 @@ class MarkerPageCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $type = $this->scaffoldRepository->getType($this->type);
-
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 

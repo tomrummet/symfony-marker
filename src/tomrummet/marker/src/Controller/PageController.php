@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Controller;
+namespace Tomrummet\Marker\Controller;
 
-use App\Repository\PageRepository;
-use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Tomrummet\Marker\Repository\PageRepository;
+use Tomrummet\Marker\Repository\PostRepository;
 
 final class PageController extends AbstractController
 {
-    #[Route('/', name: 'app_index')]
+    #[Route('/', name: 'marker_index')]
     public function index(
         PageRepository $pageRepository,
         PostRepository $postRepository,
@@ -22,7 +22,7 @@ final class PageController extends AbstractController
         ]);
     }
 
-    #[Route('/page/{name}', name: 'app_page')]
+    #[Route('/page/{name}', name: 'marker_page')]
     public function page(
         string $name,
         PageRepository $pageRepository,

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace Tomrummet\Marker\Controller;
 
-use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Tomrummet\Marker\Repository\PostRepository;
 
 final class PostController extends AbstractController
 {
-    #[Route('/posts', name: 'app_posts')]
+    #[Route('/posts', name: 'marker_posts')]
     public function index(
         PostRepository $postRepository
     ): Response {
@@ -19,7 +19,7 @@ final class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/{slug}', name: 'app_post')]
+    #[Route('/posts/{slug}', name: 'marker_post')]
     public function post(
         string $slug,
         PostRepository $postRepository,
