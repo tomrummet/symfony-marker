@@ -13,11 +13,6 @@ class PostRepository extends MarkerRepository
         public ParameterBagInterface $params,
     ) {}
 
-    public function getContentDirectory(): string
-    {
-        return "{$this->params->get('kernel.project_dir')}/{$this->params->get('marker.directory.posts')}";
-    }
-
     public function getFile(string $name): string|false
     {
         $filename = "{$this->getContentDirectory()}{$name}/content.md";
@@ -77,5 +72,10 @@ class PostRepository extends MarkerRepository
             ->in($this->getContentDirectory() . '*')
             ->name('metadata.yaml')
         ;
+    }
+
+    public function getContentDirectory(string $type = 'posts'): string
+    {
+        return parent::getContentDirectory($type);
     }
 }

@@ -13,11 +13,6 @@ class PageRepository extends MarkerRepository
         public ParameterBagInterface $params,
     ) {}
 
-    public function getContentDirectory(): string
-    {
-        return "{$this->params->get('kernel.project_dir')}/{$this->params->get('marker.directory.pages')}";
-    }
-
     public function getFile(string $name): SplFileInfo|false
     {
         $pagePath = "{$this->getContentDirectory()}{$name}/";
@@ -80,5 +75,10 @@ class PageRepository extends MarkerRepository
             ->notName('Index.md')
             ->name('*.md')
         ;
+    }
+
+    public function getContentDirectory(string $type = 'pages'): string
+    {
+        return parent::getContentDirectory($type);
     }
 }

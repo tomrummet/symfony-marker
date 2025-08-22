@@ -28,8 +28,8 @@ class MarkerRepository
         }
     }
 
-    public function getContentDirectory(): string
+    public function getContentDirectory(string $type): string
     {
-        return $this->params->get('marker.directory.pages');
+        return "{$this->params->get('kernel.project_dir')}/{$this->params->get("marker.directory.{$type}")}";
     }
 }
