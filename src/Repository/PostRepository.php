@@ -2,14 +2,12 @@
 
 namespace App\Repository;
 
-use ArrayIterator;
-use LimitIterator;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
-class PostRepository extends MarkdownRepository
+class PostRepository extends MarkerRepository
 {
     public function __construct(
         public ParameterBagInterface $params,

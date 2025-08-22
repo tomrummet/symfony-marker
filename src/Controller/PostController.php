@@ -13,7 +13,7 @@ final class PostController extends AbstractController
     public function index(
         PostRepository $postRepository
     ): Response {
-        return $this->render('post/index.html.twig', [
+        return $this->render('marker/post/index.html.twig', [
             'content' => '',
             'posts' => $postRepository->getPosts(),
         ]);
@@ -24,7 +24,7 @@ final class PostController extends AbstractController
         string $slug,
         PostRepository $postRepository,
     ): Response {
-        return $this->render('post/post.html.twig', [
+        return $this->render('marker/post/post.html.twig', [
             'post' => $postRepository->getPost($slug),
         ]);
     }

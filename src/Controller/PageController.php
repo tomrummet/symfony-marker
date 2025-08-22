@@ -35,7 +35,7 @@ final class PageController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        return $this->render('page/index.html.twig', [
+        return $this->render('marker/page/index.html.twig', [
             'title' => rtrim($file->getFilename(), '.md'),
             'content' => $pageRepository->getMarkdownContent($file)
         ]);

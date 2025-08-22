@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
-class PageRepository extends MarkdownRepository
+class PageRepository extends MarkerRepository
 {
     public function __construct(
         public ParameterBagInterface $params,

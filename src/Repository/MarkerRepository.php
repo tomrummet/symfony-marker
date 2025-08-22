@@ -7,7 +7,7 @@ use League\CommonMark\Exception\IOException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-class MarkdownRepository
+class MarkerRepository
 {
     public function __construct(
         public ParameterBagInterface $params
