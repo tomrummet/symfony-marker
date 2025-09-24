@@ -14,8 +14,8 @@
         "symfony/flex": "^2.8.2",
         "symfony/framework-bundle": "7.3.*",
         "symfony/runtime": "7.3.*",
-        "symfony/stimulus-bundle": "^2.29.2",
-        "symfony/ux-turbo": "^2.29.2",
+        "symfony/stimulus-bundle": "^2.30.0",
+        "symfony/ux-turbo": "^2.30.0",
         "symfony/webpack-encore-bundle": "^2.3",
         "symfony/yaml": "7.3.*"
     },
@@ -72,7 +72,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.3.6",
+        "phpunit/phpunit": "^12.3.14",
         "symfony/maker-bundle": "^1.64",
         "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*"
