@@ -2,9 +2,11 @@
 
 namespace App\Tests\Service;
 
+use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
 use Tomrummet\Marker\Model\MarkerTypeEnum;
 use Tomrummet\Marker\Repository\ScaffoldRepository;
 
@@ -136,6 +138,55 @@ class ScaffoldTest extends KernelTestCase
 
         $this->assertDirectoryDoesNotExist($pageFolder);
         $this->assertDirectoryDoesNotExist($postFolder);
+    }
+
+    #[Test]
+    public function writeMetadataContent(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+
+        $scaffoldRepository = $container->get(ScaffoldRepository::class);
+
+        $postName = 'Scaffold test post';
+        $this->assertTrue($scaffoldRepository->createFolder(
+            name: $postName,
+            type: MarkerTypeEnum::POST,
+        ));
+
+        $this->assertTrue($scaffoldRepository->createFiles(
+            name: $postName,
+            type: MarkerTypeEnum::POST,
+        ));
+
+        $postFolder = $scaffoldRepository->getPath(
+            name: $postName,
+            type: MarkerTypeEnum::POST,
+        );
+
+        $content = [
+            'title' => $postName,
+            'author' => 'Test Author',
+            'published' => (new DateTime())->format('Y-m-d H:i:s'),
+            'tags' => [
+                'phpunit',
+                'testing',
+                'cool',
+                'stuff',
+            ],
+        ];
+
+        $this->assertEquals($content, $scaffoldRepository->writeMetadataContent($content));
+
+        $yamlContent = Yaml::dump($content);
+        
+        $filesystem = new Filesystem();
+        $fileContent = $filesystem->readFile("{$postFolder}/metadata.yaml");
+
+        $this->assertEquals($yamlContent, $fileContent);
+
+        $filesystem = new Filesystem();
+        $filesystem->remove($postFolder);
     }
 
     private function getTestContentsDirectory(): string

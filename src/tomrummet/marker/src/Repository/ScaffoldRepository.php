@@ -2,9 +2,11 @@
 
 namespace Tomrummet\Marker\Repository;
 
+use Exception;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Yaml\Yaml;
 use Tomrummet\Marker\Model\MarkerTypeEnum;
 
 class ScaffoldRepository
@@ -80,5 +82,28 @@ class ScaffoldRepository
         } catch (IOException $e) {
             return false;
         }
+    }
+
+    public function writeMetadataContent(array $content): array
+    {
+        if (!isset($content['title'])) {
+            throw new Exception('Missing post title in metadata content');
+        }
+        
+        $path = $this->getPath(
+            name: $content['title'],
+            type: MarkerTypeEnum::POST,
+        );
+
+        $metadata = Yaml::dump($content);
+
+        try {
+            $filesystem = new Filesystem();
+            $filesystem->appendToFile("{$path}/metadata.yaml", $metadata);
+        } catch (IOException $e) {
+            throw new Exception('Could not write metadata Yaml content to file');
+        }
+
+        return $content;
     }
 }
