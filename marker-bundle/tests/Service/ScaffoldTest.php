@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Tests\Service;
+namespace Tomrummet\MarkerBundle\Tests\Service;
 
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
-use Tomrummet\Marker\Model\MarkerTypeEnum;
-use Tomrummet\Marker\Repository\ScaffoldRepository;
+use Tomrummet\MarkerBundle\Model\MarkerTypeEnum;
+use Tomrummet\MarkerBundle\Repository\ScaffoldRepository;
 
 class ScaffoldTest extends KernelTestCase
 {
-    private string $fixturesFolder = 'tests/Fixtures/';
-
     #[Test]
     public function getType(): void
     {
@@ -52,7 +50,7 @@ class ScaffoldTest extends KernelTestCase
         );
 
         $this->assertEquals(
-            $this->getTestContentsDirectory() . 'pages/scaffold-test-page',
+            $this->getFixturesDirectory() . 'pages/scaffold-test-page',
             $pageFolder
         );
 
@@ -70,7 +68,7 @@ class ScaffoldTest extends KernelTestCase
         );
 
         $this->assertEquals(
-            $this->getTestContentsDirectory() . 'posts/scaffold-test-post',
+            $this->getFixturesDirectory() . 'posts/scaffold-test-post',
             $postFolder,
         );
 
@@ -189,11 +187,8 @@ class ScaffoldTest extends KernelTestCase
         $filesystem->remove($postFolder);
     }
 
-    private function getTestContentsDirectory(): string
+    private function getFixturesDirectory(): string
     {
-        self::bootKernel();
-        $container = static::getContainer();
-
-        return $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder;
+        return realpath(dirname(__FILE__) . '/../Fixtures/') . '/';
     }
 }

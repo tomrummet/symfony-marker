@@ -17,7 +17,8 @@
         "symfony/stimulus-bundle": "^2.30.0",
         "symfony/ux-turbo": "^2.30.0",
         "symfony/webpack-encore-bundle": "^2.3",
-        "symfony/yaml": "7.3.*"
+        "symfony/yaml": "7.3.*",
+        "tomrummet/marker-bundle": "@dev"
     },
     "config": {
         "allow-plugins": {
@@ -31,8 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Tomrummet\\Marker\\": "src/tomrummet/marker/src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
@@ -76,5 +76,11 @@
         "symfony/maker-bundle": "^1.64",
         "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*"
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "marker-bundle"
+        }
+    ]
 }

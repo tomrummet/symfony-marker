@@ -1,29 +1,27 @@
 <?php
 
-namespace App\Tests\Service;
+namespace Tomrummet\MarkerBundle\Tests\Service;
 
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
-use Tomrummet\Marker\Repository\PostRepository;
+use Tomrummet\MarkerBundle\Repository\PostRepository;
 
 class PostTest extends KernelTestCase
 {
-    protected string $fixturesFolder = 'tests/Fixtures/posts/';
-
     #[Test]
     public function getPostContentDirectory(): void
     {
         $filesystem = new Filesystem();
 
-        $this->assertTrue($filesystem->exists($this->fixturesFolder), "Couldn't find folder {$this->fixturesFolder}");
+        $this->assertTrue($filesystem->exists($this->getFixturesDirectory()), "Couldn't find folder {$this->getFixturesDirectory()}");
 
         self::bootKernel();
         $container = static::getContainer();
         $postRepository = $container->get(PostRepository::class);
 
         $this->assertEquals(
-            $this->getTestContentsDirectory(),
+            $this->getFixturesDirectory(),
             $postRepository->getContentDirectory(),
         );
     }
@@ -41,7 +39,7 @@ class PostTest extends KernelTestCase
         $file = $postRepository->getFile('test-post');
         $this->assertNotFalse($file);
         $this->assertEquals(
-            $this->getTestContentsDirectory() . 'test-post/content.md',
+            $this->getFixturesDirectory() . 'test-post/content.md',
             $file,
         );
     }
@@ -73,9 +71,9 @@ class PostTest extends KernelTestCase
     {
         $filesystem = new Filesystem();
 
-        $this->assertFalse($filesystem->exists($this->getTestContentsDirectory() . 'not-a-test-post/metadata.yaml'));
-        $this->assertTrue($filesystem->exists($this->getTestContentsDirectory() . 'test-post/metadata.yaml'));
-        $this->assertTrue($filesystem->exists($this->getTestContentsDirectory() . 'another-test-post/metadata.yaml'));
+        $this->assertFalse($filesystem->exists($this->getFixturesDirectory() . 'not-a-test-post/metadata.yaml'));
+        $this->assertTrue($filesystem->exists($this->getFixturesDirectory() . 'test-post/metadata.yaml'));
+        $this->assertTrue($filesystem->exists($this->getFixturesDirectory() . 'another-test-post/metadata.yaml'));
 
         self::bootKernel();
         $container = static::getContainer();
@@ -118,11 +116,8 @@ class PostTest extends KernelTestCase
         $this->assertEquals(1, count($posts), "Limit amount of posts isn't respected");
     }
 
-    private function getTestContentsDirectory(): string
+    private function getFixturesDirectory(): string
     {
-        self::bootKernel();
-        $container = static::getContainer();
-
-        return $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder;
+        return realpath(dirname(__FILE__) . '/../Fixtures/posts/') . '/';
     }
 }

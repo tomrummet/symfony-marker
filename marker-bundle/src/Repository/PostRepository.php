@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomrummet\Marker\Repository;
+namespace Tomrummet\MarkerBundle\Repository;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;

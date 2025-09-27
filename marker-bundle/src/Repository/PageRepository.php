@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomrummet\Marker\Repository;
+namespace Tomrummet\MarkerBundle\Repository;
 
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

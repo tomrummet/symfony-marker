@@ -162,5 +162,8 @@
             "package.json",
             "webpack.config.js"
         ]
+    },
+    "tomrummet/marker-bundle": {
+        "version": "dev-main"
     }
 }

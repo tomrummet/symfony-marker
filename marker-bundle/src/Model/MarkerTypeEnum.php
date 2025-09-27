@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomrummet\Marker\Model;
+namespace Tomrummet\MarkerBundle\Model;
 
 enum MarkerTypeEnum
 {

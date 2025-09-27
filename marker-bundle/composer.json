@@ -1,0 +1,16 @@
+{
+    "name": "tomrummet/marker-bundle",
+    "description": "Markdown CMS and blog",
+    "type": "symfony-bundle",
+    "autoload": {
+        "psr-4": {
+            "Tomrummet\\MarkerBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tomrummet\\MarkerBundle\\Tests\\": "tests/"
+        }
+    },
+    "require": {}
+}

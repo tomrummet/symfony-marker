@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Tests\Service;
+namespace Tomrummet\MarkerBundle\Tests\Service;
 
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
-use Tomrummet\Marker\Repository\PageRepository;
+use Tomrummet\MarkerBundle\Repository\PageRepository;
 
 class PageTest extends KernelTestCase
 {
-    private string $fixturesFolder = 'tests/Fixtures/pages/';
-
     #[Test]
     public function pageContentDirectory(): void
     {
@@ -20,9 +18,9 @@ class PageTest extends KernelTestCase
         $pageRepository = $container->get(PageRepository::class);
         $filesystem = new Filesystem();
 
-        $this->assertTrue($filesystem->exists($this->fixturesFolder));
+        $this->assertTrue($filesystem->exists($this->getFixturesDirectory()));
         $this->assertEquals(
-            $this->getTestContentsDirectory(),
+            $this->getFixturesDirectory(),
             $pageRepository->getContentDirectory(),
         );
     }
@@ -38,7 +36,7 @@ class PageTest extends KernelTestCase
 
         $this->assertNotFalse($file);
         $this->assertEquals(
-            $this->getTestContentsDirectory() . 'markdown-page/Markdown page.md',
+            $this->getFixturesDirectory() . 'markdown-page/Markdown page.md',
             $file->getPathName(),
         );
     }
@@ -90,11 +88,8 @@ class PageTest extends KernelTestCase
         );
     }
 
-    private function getTestContentsDirectory(): string
+    private function getFixturesDirectory(): string
     {
-        self::bootKernel();
-        $container = static::getContainer();
-
-        return $container->getParameter('kernel.project_dir') . '/' . $this->fixturesFolder;
+        return realpath(dirname(__FILE__) . '/../Fixtures/pages/') . '/';
     }
 }

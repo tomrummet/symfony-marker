@@ -1,6 +1,6 @@
 <?php
 
-namespace Tomrummet\Marker\Repository;
+namespace Tomrummet\MarkerBundle\Repository;
 
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Exception\IOException;

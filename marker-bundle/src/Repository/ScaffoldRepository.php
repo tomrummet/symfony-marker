@@ -1,13 +1,13 @@
 <?php
 
-namespace Tomrummet\Marker\Repository;
+namespace Tomrummet\MarkerBundle\Repository;
 
 use Exception;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Yaml\Yaml;
-use Tomrummet\Marker\Model\MarkerTypeEnum;
+use Tomrummet\MarkerBundle\Model\MarkerTypeEnum;
 
 class ScaffoldRepository
 {
