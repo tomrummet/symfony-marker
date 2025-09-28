@@ -2,47 +2,72 @@
 
 namespace Tomrummet\MarkerBundle\Command;
 
+use DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Tomrummet\MarkerBundle\Model\MarkerTypeEnum;
+use Tomrummet\MarkerBundle\Repository\ScaffoldRepository;
 
 #[AsCommand(
     name: 'marker:post:create',
-    description: 'Add a short description for your command',
+    description: 'Create a new blog post structure',
 )]
 class MarkerPostCreateCommand extends Command
 {
-    public function __construct()
-    {
+    public function __construct(
+        public ScaffoldRepository $scaffoldRepository,
+        public MarkerTypeEnum $type = MarkerTypeEnum::POST,
+    ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        
+        $name = $io->ask('Post title');
+        $slug = $this->scaffoldRepository->getSlugByName($name);
+        
+        $io->success("With the title {$name} you get the slug {$slug}");
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        $confirm = $io->confirm("Do you wish to continue?");
+        if (!$confirm) {
+            return Command::INVALID;
         }
 
-        if ($input->getOption('option1')) {
-            // ...
+        if (!$this->scaffoldRepository->createFolder(
+            name: $name,
+            type: $this->type,
+        )) {
+            $io->error("Couldn't create the folder {$slug}");
+
+            return Command::FAILURE;
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        if (!$this->scaffoldRepository->createFiles(
+            name: $name,
+            type: $this->type,
+        )) {
+            $io->error("Couldn't create the files for the blog post");
+
+            return Command::FAILURE;
+        }
+
+        $content = [
+            'title' => $name,
+            'author' => $io->ask('Author', 'Ash'),
+            'published' => $io->ask('Published', (new DateTime())->format('Y-m-d H:i:s')),
+            'tags' => array_map('trim', explode(',', $io->ask('Tags (comma seperated)'))),
+        ];
+
+        if (!$this->scaffoldRepository->writeMetadataContent($content)) {
+            $io->error("Couldn't write metadata to YAML file");
+
+            return Command::FAILURE;
+        }
 
         return Command::SUCCESS;
     }
