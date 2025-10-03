@@ -12,5 +12,8 @@
             "Tomrummet\\MarkerBundle\\Tests\\": "tests/"
         }
     },
-    "require": {}
+    "require": {
+        "symfony/translation": "^7.3",
+        "league/commonmark": "^2.7"
+    }
 }
