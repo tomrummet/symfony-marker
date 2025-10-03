@@ -24,7 +24,7 @@ class MarkerRepository
                 ->getContent()
             ;
         } catch(IOException $e) {
-            return '# Ups!';
+            return "# Ups! Something didn't go as planned...";
         }
     }
 

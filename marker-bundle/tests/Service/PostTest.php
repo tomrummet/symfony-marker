@@ -87,6 +87,8 @@ class PostTest extends KernelTestCase
         $this->assertIsArray($metadata);
         $this->assertArrayHasKey('title', $metadata);
         $this->assertEquals('Test post', $metadata['title']);
+        $this->assertArrayHasKey('summary', $metadata);
+        $this->assertEquals('This is a summary', $metadata['summary']);
         $this->assertArrayHasKey('published', $metadata);
         $this->assertEquals('2025-08-11 21:01:59', $metadata['published']);
     }

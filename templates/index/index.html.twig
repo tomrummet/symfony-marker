@@ -1,28 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>{{ content|raw }}</div>
+    <div id="content">
+        {{ content|raw }}
+    </div>
 
-    <ul>
-    {% for page in pages %}
-        <li>
-            <a href="{{ page.path }}">{{ page.title }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+    <div id="navigation">
+        <b>Pages</b>
 
-    <h2>Latest posts</h2>
-    <div>
-    {% for post in posts %}
-         <article>
-            <h3>
-                <a href="posts/{{ post.slug }}">{{ post.title|capitalize }}</a>
-            </h3>
-            <div id="metadata">
-                <span class="published">Published {{ post.published }}</span>
-                <span class="author">by {{ post.author }}</span>
-            </div>
-        </li>
-    {% endfor %}
+        <ul class="items">
+        {% for page in pages %}
+            <li>
+                <a href="{{ page.path }}">{{ page.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div id="posts">
+        <h2>Latest posts</h2>
+
+        <div>
+        {% for post in posts %}
+            <article>
+                <h3>
+                    <a href="posts/{{ post.slug }}">{{ post.title|capitalize }}</a>
+                </h3>
+                <div class="metadata">
+                    <span class="published">Published {{ post.published }}</span>
+                    <span class="author">by {{ post.author }}</span>
+                </div>
+                <p>{{ post.summary }}
+            </li>
+        {% endfor %}
+        </div>
     </div>
 {% endblock %}
